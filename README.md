@@ -30,35 +30,42 @@
 
 ## 2.建立分类模型
 
-记某一图像的特征为$x\in R^{1 \times 48}$，对应的标签为$y$将室外图像记为正例，取值为1，室内图像记为负例，取值为0。该任务的简单线性回归模型如下：
+记某一图像的特征为   $x\in R^{1 \times 48}$   ，对应的标签为   $y$   将室外图像记为正例，取值为1，室内图像记为负例，取值为0。该任务的简单线性回归模型如下：
+
 $$
 y = w^T x + b\quad\quad\quad\quad(1)
 $$
+
 普通回归模型的二分类能力不强，引入逻辑回归函数：
+
 $$
 y = \frac{1}{1 + e^{-(w^T x + b)}}\quad\quad\quad\quad(2)
 $$
-若将$y$表示为样本$x$为正例的可能性，则$1-y$为其返反例的可能性，两者的比值$y/(1-y)$称为“几率”，反映了$x$作为整理的相对可能性，对几率取对数得到“对数几率”$ln(y/(1-y))$，将(2)式代入得：
+
+若将  $y$  表示为样本   $x$   为正例的可能性，则  $1-y$  为其返反例的可能性，两者的比值  $y/(1-y)$  称为“几率”，反映了 $x$ 作为整理的相对可能性，对几率取对数得到“对数几率” $ln(y/(1-y))$ ，将(2)式代入得：
+
 $$
 ln\frac{y}{1-y}=ln(\frac{1}{1 + e^{-(w^T x + b)}}/\frac{e^{-(w^T x + b)}}{1 + e^{-(w^T x + b)}}) = ln\frac{1}{e^{-(w^T x + b)}} = w^Tx + b\quad \quad (3)
 $$
-通过“最大似然法”可估计$w$和$b$的值，给定数据集$\{(x_i, y_i)\}^m_{i=1}$，记$\hat{w} = (w, b),\ \hat{x}=(x, 1)$，最大化“对数似然”函数求解参数$\hat{w}$（推导过程参考南瓜书，对应西瓜书公式3.21~3.27）：
+
+通过“最大似然法”可估计 $w$ 和 $b$ 的值，给定数据集 $\{(x_i, y_i)\}^m_{i=1}$ ，记 $\hat{w} = (w, b),\ \hat{x}=(x, 1)$ ，最大化“对数似然”函数求解参数 $\hat{w}$ （推导过程参考南瓜书，对应西瓜书公式3.21~3.27）：
+
 $$
-L(\hat{w}) = \max \sum^m_{i=1}ln\ p(y_i|\hat{x_i}; \hat{w})\\
-\quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad
-= \max \sum^m_{i=1}ln\{ y_ip_1(\hat{x}_i; \hat{w})  + (1 - y_i)p_0(\hat{x}_i; \hat{w})\}	\\
-\quad \quad \quad \quad \quad \quad \quad \quad \quad \quad \quad 
+L(\hat{w}) = \max \sum^m_{i=1}ln\ p(y_i|\hat{x_i}; \hat{w})   \\\\
+= \max \sum^m_{i=1}ln\{ y_ip_1(\hat{x}_i; \hat{w})  + (1 - y_i)p_0(\hat{x}_i; \hat{w})\}	\\\\
 = \min \sum^m_{i=1}-y_i \hat{w}^T \hat{x_i} + ln(1 + e^{ \hat{w}^T \hat{x_i}})  \quad \quad(4)
 $$
 
 ## 3.梯度下降求解优化模型
 
-记$\hat{X} = (X, 1)$计算(4)式对$\hat{w}$的梯度，得到$\hat{w}$的梯度：
+记 $\hat{X} = (X, 1)$ 计算(4)式对 $\hat{w}$ 的梯度，得到 $\hat{w}$ 的梯度：
+
 $$
 L(\hat{w})^{'} = \frac{e^{\hat{w}^T_{k} \  \hat{X}}}{1 + e^{\hat{w}^T_{k} \  \hat{X}}} \ \hat{X} - Y \hat{X}  \\
 \hat{w}_{k+1} = \hat{w}_k - \alpha L(\hat{w})^{'} 
 $$
-其中$\alpha$为更新步长。
+
+其中 $\alpha$ 为更新步长。
 
 ## 4.参考资料
 
