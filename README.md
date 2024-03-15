@@ -53,7 +53,7 @@ $$
 $$
 L(\hat{w}) = \max \sum^m_{i=1}ln\ p(y_i|\hat{x_i}; \hat{w})   \\\\
 = \max \sum^m_{i=1}ln\{ y_ip_1(\hat{x}_i; \hat{w})  + (1 - y_i)p_0(\hat{x}_i; \hat{w})\}	\\\\
-= \min \sum^m_{i=1}-y_i \hat{w}^T \hat{x_i} + ln(1 + e^{ \hat{w}^T \hat{x_i}})  \quad \quad(4)
+= \min \sum^m _{i=1}-y_i \hat{w}^T \hat{x_i} + ln(1 + e^{ \hat{w}^T \hat{x_i}})  \quad \quad(4)
 $$
 
 ## 3.梯度下降求解优化模型
